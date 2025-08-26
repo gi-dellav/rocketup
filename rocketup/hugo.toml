@@ -1,0 +1,13 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'rocketup - blog on technology'
+theme = "paper"
+sectionPagesMenu = 'main'
+
+[outputs]
+home = ["HTML", "Redirect"]
+
+[[redirects]]
+from = "/"
+to = "/posts/"
+status = 301
