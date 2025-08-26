@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = "https://rocketup.pages.dev/"
 languageCode = 'en-us'
 title = 'rocketup - blog on technology'
 theme = "paper"
