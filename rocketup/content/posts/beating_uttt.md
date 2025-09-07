@@ -2,7 +2,7 @@
 title = 'Beating Ultimate Tic-Tac-Toe using optimization functions'
 date = 2025-08-26T11:31:49+02:00
 type = "post"
-draft = true
+draft = false
 +++
 
 *Check the source code [here](https://github.com/gi-dellav/WeightedUTTT).*
