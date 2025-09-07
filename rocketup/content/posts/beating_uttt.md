@@ -57,8 +57,9 @@ For the WeightedUTTT evalution function, we'll use this list of parameters:
 
 (Note: if it is possible to win with one move, the score will always be equal to 10000)
 
-The WeightedUTTT function will also take three special parameters: *n* and *k*,  with *n* equal to the number of future turns analyzed and *k* equal to the number of moves fully analized at each future turn,
-*n* and *k* don't need to be optimized, don't need to change based on the values of the other parameters, and `n*k` is in a (approximately) linear relationship with the compute time and with the quality of the evaluations.
+The WeightedUTTT function will also take three special parameters: *n* and *k*,  with *n* equal to the number of future turns analyzed and *k* equal to the number of moves fully analized at each future turn.
+
+*n* and *k* don't need to be optimized, don't need to change based on the values of the other parameters, and *k^n* is in a (approximately) linear relationship with the compute time and with the quality of the evaluations.
 
 ## Part III. Optimizing parameters using GAs
 
