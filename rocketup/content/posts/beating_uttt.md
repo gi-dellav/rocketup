@@ -70,12 +70,8 @@ Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its para
 
 We are going to test both of those reward function with 3 different global optimization alghorithms; for the first alghorithm we'll try [genetic alghorithms](https://en.wikipedia.org/wiki/Genetic_algorithm), which simulate evolution creating generations and generations of individuals that have the set of parameters as their genotype.
 
-## Part IV. Optimizing parameters using Bayesian optimization
-
-Now we are going to try using [Bayesian optimization](https://en.wikipedia.org/wiki/Bayesian_optimization), which tries to build a probabilistic model of the reward function in order to optimize the set of results.
-
-## Part V. Optimizing parameters using CMA-ES
+## Part IV. Optimizing parameters using CMA-ES
 
 Now we are going to try usign [CMA-ES](https://en.wikipedia.org/wiki/CMA-ES), which evolves a population of possible solutions, updating the [covariance matrix](https://en.wikipedia.org/wiki/Covariance_matrix) so that new samples are more likely to have better results.
 
-## Part VI. Final results
+## Part V. Final results
