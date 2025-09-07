@@ -2,7 +2,7 @@
 title = 'Beating Ultimate Tic-Tac-Toe using optimization functions'
 date = 2025-08-26T11:31:49+02:00
 type = "post"
-draft = false
+draft = true
 +++
 
 *Check the source code [here](https://github.com/gi-dellav/WeightedUTTT).*
@@ -57,15 +57,24 @@ For the WeightedUTTT evalution function, we'll use this list of parameters:
 
 (Note: if it is possible to win with one move, the score will always be equal to 10000)
 
+The WeightedUTTT function will also take three special parameters: *n* and *k*,  with *n* equal to the number of future turns analyzed and *k* equal to the number of moves fully analized at each future turn,
+*n* and *k* don't need to be optimized, don't need to change based on the values of the other parameters, and `n*k` is in a (approximately) linear relationship with the compute time and with the quality of the evaluations.
+
 ## Part III. Optimizing parameters using GAs
 
-Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its parameters, so we are going to design 2 different reward functions that act as the real "optimized" functions:
+Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its parameters, so we are going to design 2 different reward functions that act as the real "optimized" functions (think of it as a way to reward great operations and punish bad attempts, kinda like giving a treat to a dog every time he does a trick):
 
 - *self-play reward function*: Plays against the current best set of parameters, gets a reward of +*n* if it wins and -(1/*n*) if it loses, with *n* equal to the best sets of parameters already defeated plus 1.
 - *Monte Carlo's enemy reward function*: Plays 6 matches against a bot that uses the MCST with a predefined number of iterations, starts with the reward of -3 and adds 1 for each win; when it wins 4 out of 6 matches, it multiplies the number of interations by K and gives an extra bonus of +6; this allows to keep training against better and better opponents.
 
+We are going to test both of those reward function with 3 different global optimization alghorithms; for the first alghorithm we'll try [genetic alghorithms](https://en.wikipedia.org/wiki/Genetic_algorithm), which simulate evolution creating generations and generations of individuals that have the set of parameters as their genotype.
+
 ## Part IV. Optimizing parameters using Bayesian optimization
 
+Now we are going to try using [Bayesian optimization](https://en.wikipedia.org/wiki/Bayesian_optimization), which tries to build a probabilistic model of the reward function in order to optimize the set of results.
+
 ## Part V. Optimizing parameters using CMA-ES
+
+Now we are going to try usign [CMA-ES](https://en.wikipedia.org/wiki/CMA-ES), which evolves a population of possible solutions, updating the [covariance matrix](https://en.wikipedia.org/wiki/Covariance_matrix) so that new samples are more likely to have better results.
 
 ## Part VI. Final results
