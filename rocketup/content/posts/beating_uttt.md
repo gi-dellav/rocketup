@@ -39,6 +39,10 @@ Well, how can we make accurate evaluation functions that can balance lots of dif
 
 Parameteric evalution functions are like evaluation functions but they also take as input a set of parameters used as constants or coefficents in order to calculate the real evaluation score: we can then use [global optimization alghorithms](https://en.wikipedia.org/wiki/Global_optimization) in order to find good values for those sets of parameters.
 
+
+---
+
+
 For the WeightedUTTT evalution function, we'll use this list of parameters:
 
 - `taking_metacell`: add if the move will complete a metacell
@@ -69,6 +73,17 @@ Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its para
 - *Monte Carlo's enemy reward function*: Plays 6 matches against a bot that uses the MCST with a predefined number of iterations, starts with the reward of -3 and adds 1 for each win; when it wins 4 out of 6 matches, it multiplies the number of interations by K and gives an extra bonus of +6; this allows to keep training against better and better opponents.
 
 We are going to test both of those reward function with 3 different global optimization alghorithms; for the first alghorithm we'll try [genetic alghorithms](https://en.wikipedia.org/wiki/Genetic_algorithm), which simulate evolution creating generations and generations of individuals that have the set of parameters as their genotype.
+
+
+---
+
+
+Before we start optimizing, I want to stop for a second and talk about non-stationary processes: both of these reward functions are non-stationary, as it that the same input can give different outputs at different steps without being random: this is beacuse the optimization process for both of these functions have variables that change over time, influencing the result.
+
+Optimizing non-stationary processes is harder and this is the reason why we aren't trying some of the most standard global optimization alghorithms, like Bayesian optimiziation. More can be read [on the definition of *stationary process*](https://en.wikipedia.org/wiki/Stationary_process) and on non-stationary optimizations in [these](https://arxiv.org/abs/2506.02980) [two](https://arxiv.org/abs/1307.5449) articles.
+
+
+---
 
 ## Part IV. Optimizing parameters using CMA-ES
 
