@@ -61,7 +61,11 @@ For the WeightedUTTT evalution function, we'll use this list of parameters:
 
 (Note: if it is possible to win with one move, the score will always be equal to 10000)
 
-The WeightedUTTT function will also take three special parameters: *n* and *k*,  with *n* equal to the number of future turns analyzed and *k* equal to the number of moves fully analized at each future turn.
+
+---
+
+
+The WeightedUTTT function will also take two special parameters: *n* and *k*, with *n* equal to the number of future turns analyzed and *k* equal to the number of moves fully analized at each future turn.
 
 *n* and *k* don't need to be optimized, don't need to change based on the values of the other parameters, and *k^n* is in a (approximately) linear relationship with the compute time and with the quality of the evaluations.
 
@@ -85,9 +89,14 @@ Optimizing non-stationary processes is harder and this is the reason why we aren
 
 ---
 
-We also need to talk about the bot engine, that is the component that uses the eval function in order to determine the best strategy: this might seem like a simple pick-the-best problem, and it mostly is, except for the openings, where it is better to not use eval functions (they are slow and mostly useless in this situations); there are two opening strategies we defined:
+We also need to talk about the bot engine, that is the component that uses the eval function in order to determine the best strategy: this might seem like a simple pick-the-best problem, and it mostly is, except for the openings, where it is better to not use eval functions (they are slow and mostly useless in this situations) and instead we use one of these two opening strategies we defined:
 - *The jumper*: Starts at the center of the center minigrid if you are the first player; if it is possible to play a move that leads the enemy to an empty cell, select it, if there isn't switch to the eval-based engine
 - *The drunk*: As expressed by [this 2022 article](https://arxiv.org/pdf/2207.06239), using random placement for the first 4 moves removes the risk of forced wins of the opponent; this is important if the opponent can adapt/evolve in order to find exploits in the openings (ex. using our *self-play reward function*)
+
+Optimized parameters and special parameters (*n* and *k*) shouldn't be influenced by the different strategies used, so we'll using *the Jumper* for the *Monte Carlo's enemy reward function* and a combination of both openings for the *self-play reward function*.
+
+After the optimization process, we'll try both strategies on real opponents (both humans and high-rollout MCTS) in order to determine the best one in most cases (a good strategy could be "play with *the Jumper*, but if it loses 3 matches in a row it means that the opponent is optimized against WeightedUTTT so we need to switch to *the Drunk*").
+
 
 ## Part IV. Optimizing parameters using CMA-ES
 
