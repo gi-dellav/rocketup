@@ -85,6 +85,10 @@ Optimizing non-stationary processes is harder and this is the reason why we aren
 
 ---
 
+We also need to talk about the bot engine, that is the component that uses the eval function in order to determine the best strategy: this might seem like a simple pick-the-best problem, and it mostly is, except for the openings, where it is better to not use eval functions (they are slow and mostly useless in this situations); there are two opening strategies we defined:
+- *The jumper*: Starts at the center of the center minigrid if you are the first player; if it is possible to play a move that leads the enemy to an empty cell, select it, if there isn't switch to the eval-based engine
+- *The drunk*: As expressed by [this 2022 article](https://arxiv.org/pdf/2207.06239), using random placement for the first 4 moves removes the risk of forced wins of the opponent; this is important if the opponent can adapt/evolve in order to find exploits in the openings (ex. using our *self-play reward function*)
+
 ## Part IV. Optimizing parameters using CMA-ES
 
 Now we are going to try usign [CMA-ES](https://en.wikipedia.org/wiki/CMA-ES), which evolves a population of possible solutions, updating the [covariance matrix](https://en.wikipedia.org/wiki/Covariance_matrix) so that new samples are more likely to have better results.
