@@ -101,7 +101,7 @@ Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its para
 
 The reward function needs to take only the set of parameter and return an integer that expresses the quality of the set of parameters: it will start with $r=0$, play 10 matches against a 1k-rollout MCTS, adds 1 to $r$ for each win and subtracts 1 for each loss.
 
-Then, if $r>=0$, it plays 2 matches against the previous best set of parameters, add 5 to $r$ for each win and subtracts 2 for each loss.
+Then, if $r \geq 0$, it plays 2 matches against the previous best set of parameters, add 5 to $r$ for each win and subtracts 2 for each loss.
 
 The reward function will return an integer value between -10 and +20, expressing the quality of the current set of parameters; the objective is to consisently hit high values of said reward function.
 
