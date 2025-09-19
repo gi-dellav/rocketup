@@ -56,8 +56,7 @@ For the WeightedUTTT evalution function, we'll use this list of parameters:
 - `play_center`: add if the move was played in the center of the metacell
 
 - `best_enemy_move`: multiply by the weight of the best move doable by the enemy
-- `second_best_enemy_move`: multiply by the weight of the second best move doable by the enemy
-- `apply_sigmoid`: special flag; if true, apply the [sigmoid function](https://en.wikipedia.org/wiki/Sigmoid_function) for the calculations of enemy's move weights.
+- `apply_softsign`: special flag; if true, apply the softsign function ($\{f}(x) = \frac{x}{1 + |x|}$) for the calculations of `best_enemy_mode`.
 
 (Note: if it is possible to win with one move, the score will always be equal to 10000)
 
@@ -67,9 +66,14 @@ For the WeightedUTTT evalution function, we'll use this list of parameters:
 
 The WeightedUTTT function will also take two special parameters: *n* and *k*, with *n* equal to the number of future turns analyzed and *k* equal to the number of moves fully analized at each future turn.
 
-*n* and *k* don't need to be optimized, don't need to change based on the values of the other parameters, and *k^n* is in a (approximately) linear relationship with the compute time and with the quality of the evaluations.
+*n* and *k* don't need to be optimized, don't need to change based on the values of the other parameters.
 
-## Part III. Optimizing parameters using GAs
+When *n* and *k* are used during the evaluation of multiple moves, another formula needs to be used in order to split the number of turns analyzed based on the number of legal moves considered (called *l*), where we find $n' = n - \log_k(l)$.
+
+Thanks to the fact that this formula scales based on the value of *l*, we can consider small deltas between average and maximum compute time for the evaluation function, being that, with $f(k,n,l) = k^{\,n - \log_k l}$ (equal to the number of evaluations for each legal move), $l*f(k,n,l)$ is equal to the total number of board evaluations and it scales linearly (with ANY value of $l>1$) with the compute time used to analyze all legal moves.
+
+
+## Part III. Preparing the function
 
 Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its parameters, so we are going to design 2 different reward functions that act as the real "optimized" functions (think of it as a way to reward great operations and punish bad attempts, kinda like giving a treat to a dog every time he does a trick):
 
