@@ -81,7 +81,7 @@ For the WeightedUTTT evalution function, we'll use this list of parameters:
 
 (Note 3: `$ignore_giving` is relevant as the recursive score calculations also calculate how good the opponent's moves are, so the `giving_` family of parameters are less relevant, and might stop us from building strategies based on giving the enemy a single positive move in order to build a longer-term strategy)
 
-Special flags should be chosed before the optimization of the parameters, as it (slightly) changes the function that we are trying to optimize.
+Special flags should be chosed before the optimization of the parameters, as they (slightly) change the function that we are trying to optimize.
 
 ---
 
@@ -92,21 +92,18 @@ The WeightedUTTT function will also take two special parameters: *n* and *k*, wi
 
 When *n* and *k* are used during the evaluation of multiple moves, another formula needs to be used in order to split the number of turns analyzed based on the number of legal moves considered (called *l*), where we find $n' = n - \log_k(l)$.
 
-Thanks to the fact that this formula scales based on the value of *l*, we can consider small deltas between average and maximum compute time for the evaluation function (the runtime is now highly predicatable, like MCTS or NNs), being that, with $f(k,n,l) = k^{\,n - \log_k l}$ (equal to the number of evaluations for each legal move), $l*f(k,n,l)$ is equal to the total number of board evaluations and it scales linearly (with ANY value of $l>1$) with the compute time used to analyze all legal moves.
+Thanks to the fact that this formula scales based on the value of *l*, we can consider small deltas between average and maximum compute time for the evaluation function (the runtime is now highly predicatable, like MCTS or NNs), being that, with $f(k,n,l) = k^{\,n - \log_k l}$ (equal to the number of evaluations for each legal move), $l*f(k,n,l)$ is equal to the total number of board evaluations and it scales linearly (with $l>1$) with the compute time used to analyze all legal moves.
 
 
 ## Part III. Preparing the function
 
-[rewrite]
+Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its parameters, so we are going to design a reward functions that act as the real "optimized" functions (think of it as a way to reward great operations and punish bad attempts, kinda like giving a treat to a dog every time he does a trick):
 
-Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its parameters, so we are going to design 2 different reward functions that act as the real "optimized" functions (think of it as a way to reward great operations and punish bad attempts, kinda like giving a treat to a dog every time he does a trick):
+The reward function needs to take only the set of parameter and return an integer that expresses the quality of the set of parameters: it will start with $r=0$, play 10 matches against a 1k-rollout MCTS, adds 1 to $r$ for each win and subtracts 1 for each loss.
 
-- *self-play reward function*: Plays against the current best set of parameters, gets a reward of +*n* if it wins and -(1/*n*) if it loses, with *n* equal to the best sets of parameters already defeated plus 1.
-- *Monte Carlo's enemy reward function*: Plays 6 matches against a bot that uses the MCST with a predefined number of iterations, starts with the reward of -3 and adds 1 for each win; when it wins 4 out of 6 matches, it multiplies the number of interations by K and gives an extra bonus of +6; this allows to keep training against better and better opponents.
+Then, if $r>=0$, it plays 2 matches against the previous best set of parameters, add 5 to $r$ for each win and subtracts 2 for each loss.
 
-We are going to test both of those reward function with 3 different global optimization alghorithms; for the first alghorithm we'll try [genetic alghorithms](https://en.wikipedia.org/wiki/Genetic_algorithm), which simulate evolution creating generations and generations of individuals that have the set of parameters as their genotype.
-
-[/rewrite]
+The reward function will return an integer value between -10 and +20, expressing the quality of the current set of parameters; the objective is to consisently hit high values of said reward function.
 
 ---
 
@@ -123,13 +120,14 @@ We also need to talk about the bot engine, that is the component that uses the e
 - *The jumper*: Starts at the center of the center minigrid if you are the first player; if it is possible to play a move that leads the enemy to an empty cell, select it, if there isn't switch to the eval-based engine
 - *The drunk*: As expressed by [this 2022 article](https://arxiv.org/pdf/2207.06239), using random placement for the first 4 moves removes the risk of forced wins of the opponent; this is important if the opponent can adapt/evolve in order to find exploits in the openings (ex. using our *self-play reward function*)
 
-Optimized parameters and special parameters (*n* and *k*) shouldn't be influenced by the different strategies used, so we'll using *the Jumper* for the *Monte Carlo's enemy reward function* and a combination of both openings for the *self-play reward function*.
-
-After the optimization process, we'll try both strategies on real opponents (both humans and high-rollout MCTS) in order to determine the best one in most cases (a good strategy could be "play with *the Jumper*, but if it loses 3 matches in a row it means that the opponent is optimized against WeightedUTTT so we need to switch to *the Drunk*").
-
+Optimized parameters and special parameters (*n* and *k*) shouldn't be influenced by the different strategies used, so we'll using *the Jumper* for the optimization of the reward function, as we expect it to be by far the most used strategy.
 
 ## Part IV. Optimizing parameters using CMA-ES
 
 Now we are going to try usign [CMA-ES](https://en.wikipedia.org/wiki/CMA-ES), which evolves a population of possible solutions, updating the [covariance matrix](https://en.wikipedia.org/wiki/Covariance_matrix) so that new samples are more likely to have better results.
 
+[[todo]]
+
 ## Part V. Final results
+
+[[todo]]
