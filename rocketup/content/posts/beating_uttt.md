@@ -21,7 +21,7 @@ While Tic-Tac-Toe is an extremely easy game for computers, UTTT is not; this is 
 
 Most UTTT bots are implemented using [Monte Carlo Tree Search](https://en.wikipedia.org/wiki/Monte_Carlo_tree_search); more can be read online, but the core concept is to run thosands of possible randomized simulations of the rest of the match in order to select the best turn action as the one that leads to the highest amount of winning endings.
 
-Another technique, mostly used in games like Go, is [Reinformenct Learning](https://en.wikipedia.org/wiki/Reinforcement_learning), where we try to train a Neural Network using reward function in order to optimize it to be as good as possible at the selected task (in this case, winning at UTTT).
+Another technique, mostly used in games like Go, is [Reinforcemenct Learning](https://en.wikipedia.org/wiki/Reinforcement_learning), where we try to train a Neural Network using reward function in order to optimize it to be as good as possible at the selected task (in this case, winning at UTTT).
 
 ---
 
@@ -37,29 +37,51 @@ For chess, eval functions are great, but for UTTT, being a constrained high-dept
 
 Well, how can we make accurate evaluation functions that can balance lots of different aspects while being tested as valid for playing bots (evals not just as an indicator but as a valid way to indicate the best move possible)? Our response is parametric evaluation functions.
 
-Parameteric evalution functions are like evaluation functions but they also take as input a set of parameters used as constants or coefficents in order to calculate the real evaluation score: we can then use [global optimization alghorithms](https://en.wikipedia.org/wiki/Global_optimization) in order to find good values for those sets of parameters.
+Parametric evalution functions are like evaluation functions but they also take as input a set of parameters used as constants or coefficents in order to calculate the real evaluation score: we can then use [global optimization alghorithms](https://en.wikipedia.org/wiki/Global_optimization) in order to find good values for those sets of parameters.
 
+Parametric evaultion functions can also be recursive functions, like in this case, where it has a coefficent applied to the best response turn that can be done by the opponent after our move; all of the non-recursive weights in this case are used in order to make a base evaluation, then we select the *k* best moves and calculate the recursive scores with *n* depth.
 
 ---
 
 
 For the WeightedUTTT evalution function, we'll use this list of parameters:
 
-- `taking_metacell`: add if the move will complete a metacell
-- `stop_metacell`: add if the move will stop the enemy from completing the metacell
+- `take_cell`: add if the move will complete a metacell
+- `take_double_cell`: add if placing here will make a compleatable 2-in-a-row in that metacell
+- `take_double_grid`: add if winning this metacell will make a compleatable 2-in-a-row of metacells
+
+---
+
+- `stop_cell`: add if the move will stop the enemy from completing the metacell
 - `stop_win`: add if the move will stop the enemy from winning
-- `double_metacell`: add if placing here will make a compleatable 2-in-a-row in that metacell
-- `double_grid`: add if winning this metacell will make a compleatable 2-in-a-row of metacells
+- `stop_double_cell`: add if the move will stop the enemy from making a compleatable 2-in-a-row in that metacell
+- `stop_double_grid`: add if the move will stop the enemy from making a compleatable 2-in-a-row of metacells
+
+---
+
+- `giving_cell`: add if the move will allow the enemey to win a metacell
+- `giving_double_cell`: add if the move will allow the enemy to make a compleatable 2-in-a-row in that metacell
+- `giving_double_grid`: add if the move will allow the enemy to make a compleatable 2-in-a-row of metacells
+
+---
 
 - `play_corner`: add if the move was played in the corner of the metacell
 - `play_sides`: add if the move was played in the sides of the metacell
 - `play_center`: add if the move was played in the center of the metacell
 
-- `best_enemy_move`: multiply by the weight of the best move doable by the enemy
-- `apply_softsign`: special flag; if true, apply the softsign function ($\{f}(x) = \frac{x}{1 + |x|}$) for the calculations of `best_enemy_mode`.
+---
 
-(Note: if it is possible to win with one move, the score will always be equal to 10000)
+- `best_enemy_move`: multiply by the weight of the best legal move of the enemy
+- `$apply_softsign`: special flag; if true, apply the softsign function ($\{f}(x) = \frac{x}{1 + |x|}$) for the calculations of `best_enemy_mode`.
+- `$ignore_giving`: special flag; if true, ignore the values of the `giving_` family of parameters if this is not the last layer of depth in the tree evaluation.
 
+(Note 1: automatic wins are always equal to 1000000.0, automatic losses are always equal to -1000000.0; this is really important because it allows propagation, where paths that force wins or losses can be passed down long chains of multiplications [ex. tree evaluation of a move 10 turns ahead], allowing for a better selection of moves)
+
+(Note 2: `$apply_softsign` is relevant as softsign can normalize `best_enemy_move` to a range from -1 to 1)
+
+(Note 3: `$ignore_giving` is relevant as the recursive score calculations also calculate how good the opponent's moves are, so the `giving_` family of parameters are less relevant, and might stop us from building strategies based on giving the enemy a single positive move in order to build a longer-term strategy)
+
+Special flags should be chosed before the optimization of the parameters, as it (slightly) changes the function that we are trying to optimize.
 
 ---
 
@@ -70,10 +92,12 @@ The WeightedUTTT function will also take two special parameters: *n* and *k*, wi
 
 When *n* and *k* are used during the evaluation of multiple moves, another formula needs to be used in order to split the number of turns analyzed based on the number of legal moves considered (called *l*), where we find $n' = n - \log_k(l)$.
 
-Thanks to the fact that this formula scales based on the value of *l*, we can consider small deltas between average and maximum compute time for the evaluation function, being that, with $f(k,n,l) = k^{\,n - \log_k l}$ (equal to the number of evaluations for each legal move), $l*f(k,n,l)$ is equal to the total number of board evaluations and it scales linearly (with ANY value of $l>1$) with the compute time used to analyze all legal moves.
+Thanks to the fact that this formula scales based on the value of *l*, we can consider small deltas between average and maximum compute time for the evaluation function (the runtime is now highly predicatable, like MCTS or NNs), being that, with $f(k,n,l) = k^{\,n - \log_k l}$ (equal to the number of evaluations for each legal move), $l*f(k,n,l)$ is equal to the total number of board evaluations and it scales linearly (with ANY value of $l>1$) with the compute time used to analyze all legal moves.
 
 
 ## Part III. Preparing the function
+
+[rewrite]
 
 Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its parameters, so we are going to design 2 different reward functions that act as the real "optimized" functions (think of it as a way to reward great operations and punish bad attempts, kinda like giving a treat to a dog every time he does a trick):
 
@@ -82,6 +106,7 @@ Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its para
 
 We are going to test both of those reward function with 3 different global optimization alghorithms; for the first alghorithm we'll try [genetic alghorithms](https://en.wikipedia.org/wiki/Genetic_algorithm), which simulate evolution creating generations and generations of individuals that have the set of parameters as their genotype.
 
+[/rewrite]
 
 ---
 
@@ -90,6 +115,7 @@ Before we start optimizing, I want to stop for a second and talk about non-stati
 
 Optimizing non-stationary processes is harder and this is the reason why we aren't trying some of the most standard global optimization alghorithms, like Bayesian optimiziation. More can be read [on the definition of *stationary process*](https://en.wikipedia.org/wiki/Stationary_process) and on non-stationary optimizations in [these](https://arxiv.org/abs/2506.02980) [two](https://arxiv.org/abs/1307.5449) articles.
 
+CMA-ES, which is the optimizer that we will use for this project, should work decently with smooth non-stationary processes like our reward function.
 
 ---
 
