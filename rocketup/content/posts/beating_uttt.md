@@ -2,7 +2,7 @@
 title = 'Beating Ultimate Tic-Tac-Toe using optimization functions'
 date = 2025-08-26T11:31:49+02:00
 type = "post"
-draft = false
+draft = true
 +++
 
 *Check the source code [here](https://github.com/gi-dellav/WeightedUTTT).*
@@ -17,7 +17,7 @@ When one player takes a cell, the other must play in the corresponding metacell 
 
 ## Part I. The classic methods
 
-While Tic-Tac-Toe is an extremely easy game for computers, UTTT is not; this is beacuse the amount of different combinations of the grid is exponentially bigger (3⁹ vs 3⁸¹) and beacuse of the consequences that each action brings to the rest of the game.
+While Tic-Tac-Toe is an extremely easy game for computers, UTTT is not; this is beacuse the amount of different combinations of the grid is exponentially bigger (\3^9\ vs \3^81\ ) and beacuse of the consequences that each action brings to the rest of the game.
 
 Most UTTT bots are implemented using [Monte Carlo Tree Search](https://en.wikipedia.org/wiki/Monte_Carlo_tree_search); more can be read online, but the core concept is to run thosands of possible randomized simulations of the rest of the match in order to select the best turn action as the one that leads to the highest amount of winning endings.
 
@@ -44,7 +44,7 @@ Parametric evaultion functions can also be recursive functions, like in this cas
 ---
 
 
-For the WeightedUTTT evalution function, we'll use this list of parameters:
+For the WeightedUTTT evalution function, we'll use this list of parameters, :
 
 - `take_cell`: add if the move will complete a metacell
 - `take_double_cell`: add if placing here will make a compleatable 2-in-a-row in that metacell
@@ -71,8 +71,8 @@ For the WeightedUTTT evalution function, we'll use this list of parameters:
 
 ---
 
-- `best_enemy_move`: multiply by the weight of the best legal move of the enemy
-- `$apply_softsign`: special flag; if true, apply the softsign function ($\{f}(x) = \frac{x}{1 + |x|}$) for the calculations of `best_enemy_mode`.
+- `best_enemy_move`: multiply by the score of the best legal move of the enemy
+- `$apply_softsign`: special flag; if true, when calculating `best_enemy_mode` apply the softsign function ($\{f\}(x) = \frac{x}{1 + |x|}$)    .
 - `$ignore_giving`: special flag; if true, ignore the values of the `giving_` family of parameters if this is not the last layer of depth in the tree evaluation.
 
 (Note 1: automatic wins are always equal to 1000000.0, automatic losses are always equal to -1000000.0; this is really important because it allows propagation, where paths that force wins or losses can be passed down long chains of multiplications [ex. tree evaluation of a move 10 turns ahead], allowing for a better selection of moves)
@@ -99,7 +99,7 @@ Thanks to the fact that this formula scales based on the value of *l*, we can co
 
 Now, we have our WeightedUTTT alghorithm, but we need a way to optimize its parameters, so we are going to design a reward functions that act as the real "optimized" functions (think of it as a way to reward great operations and punish bad attempts, kinda like giving a treat to a dog every time he does a trick):
 
-The reward function needs to take only the set of parameter and return an integer that expresses the quality of the set of parameters: it will start with $r=0$, play 10 matches against a 1k-rollout MCTS, adds 1 to $r$ for each win and subtracts 1 for each loss.
+The reward function needs to take only the set of parameter and return an integer that expresses the quality of the set of parameters: it will start with $r=0$, play 10 matches against a 2000-rollout MCTS, adds 1 to $r$ for each win and subtracts 1 for each loss.
 
 Then, if $r \geq 0$, it plays 2 matches against the previous best set of parameters, add 5 to $r$ for each win and subtracts 2 for each loss.
 
