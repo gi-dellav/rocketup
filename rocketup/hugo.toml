@@ -10,11 +10,11 @@ math = true
 rss = true                                # show rss icon
 github = 'gi-dellav'
 
-[params.giscus]
-  repo = 'gi-dellav/rocketup'                 # see https://giscus.app for more details
-  repoId = 'R_kgDOPkbq6Q'
-  category = 'Q&A'
-  categoryId = 'DIC_kwDOPkbq6c4CxIll'
-  mapping = 'pathname'
-  theme = 'noborder_dark'
-  lang = 'en-EN'
+#[params.giscus]
+#  repo = 'gi-dellav/rocketup'                 # see https://giscus.app for more details
+#  repoId = 'R_kgDOPkbq6Q'
+#  category = 'Q&A'
+#  categoryId = 'DIC_kwDOPkbq6c4CxIll'
+#  mapping = 'pathname'
+#  theme = 'noborder_dark'
+#  lang = 'en-EN'
