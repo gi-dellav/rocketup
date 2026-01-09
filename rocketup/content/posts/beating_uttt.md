@@ -7,6 +7,7 @@ draft = true
 
 *Check the source code [here](https://github.com/gi-dellav/WeightedUTTT).*
 
+**THIS IS A PUBLIC DRAFT FOR A WIP ARTICLE**
 
 ---
 
