@@ -104,5 +104,8 @@ Considering everything that I said and adding one cushion trimester (to account 
     - [Global AI computing capacity is doubling every 7 months](https://epoch.ai/data-insights/ai-chip-production)
     - [Today’s largest data center can do more than 20 GPT-4-scale training runs each month](https://epoch.ai/data-insights/gpt-4s-trainable)
     - [Open-weight models lag state-of-the-art by around 3 months on average](https://epoch.ai/data-insights/open-weights-vs-closed-weights-models)
+    - [The computational performance of machine learning hardware has doubled every 2.3 years](https://epoch.ai/data-insights/peak-performance-hardware-on-different-precisions)
+    - [Leading ML hardware becomes 40% more energy-efficient each year](https://epoch.ai/data-insights/ml-hardware-energy-efficiency)
+    - [The power required to train frontier AI models is doubling annually](https://epoch.ai/data-insights/power-usage-trend)
 
 - The Artificial Analysis Intelligence Index is limited, as it is semi-saturated and doubling the current SOTA value would bring it closer to 100%, where gains slow and are nearly nonexistent; this is not because we are not getting improvements in the LLM, but because it could "beat" the benchmark. We are thinking of switching to another index, like [ECI](https://epoch.ai/benchmarks/eci).
