@@ -31,13 +31,9 @@ We then try to plot the linear and quadratic functions that are as close as poss
 
 ![plot](/llm-growth-score-price-time.png)
 
-#### Evolution of LLMs' Efficency (for higher-ranking models)
-
-![plot](/llm-growht-score-price-smart.png)
-
 ### Evolution of LLMs' Speed
 
-#### Evolution of LLMs' Speed (for higher-ranking models)
+![plot](/llm-growth-score-speed.png)
 
 <br><br>
 
@@ -52,10 +48,8 @@ From the given data, I calculated the best approximation of a linear and of a qu
 | Intelligence                 |   2027-12-05   |  2026-08-26    |  **2029-04-16**              | **2027-02-25**                  |
 | Intelligence (*openweights*)  |  2029-05-18             |  2026-11-24     | 2031-01-15  | 2027-05-06      |
 | Efficency                | 2028-05-11     |  2026-07-16   | 2030-02-25   | **2027-02-12**   |
-| Speed                    |               |                  |                |                   |
-| Speed (*higher-ranking*)   |               |                  |                |                   |
+| Speed                    | 2030-07-03     |  2026-11-26      | 2032-12-19        |  **2027-06-08**     |
 
-(*note*: Higher-ranking models are less accurate for predicting dates for speed and efficency scores because they contain a smaller amount of data points).
 
 ## V. Conclusion
 
