@@ -17,7 +17,13 @@ In this article, I'll show the data behind the current development of LLMs and I
 
 ## III. Where Are We?
 
-We then try to plot the linear and quadratic functions that are as close as possible to the given data points, obtaining an MSE of 26.88 for the linear function (RMSE = 5.18) and an MSE of 7.78 for the quadratic function (RMSE = 2.79), so we can infer that the quadratic function is the one that best describes the Pareto frontier and that it is ~1.85x more accurate than the linear function.
+We then try to plot the linear and quadratic functions that are as close as possible to the given data points, obtaining:
+
+- an MSE of 26.88 for the linear function (RMSE = 5.18; calculated on the Intelligence plot)
+
+- an MSE of 7.78 for the quadratic function (RMSE = 2.79; calculated on the Intelligence plot)
+
+Therefore, we can infer that the quadratic function is the one that best describes the Pareto frontier and that it is ~1.85x more accurate than the linear function.
 
 ### Evolution of LLMs' Intelligence
 
