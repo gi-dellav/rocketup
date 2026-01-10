@@ -108,4 +108,4 @@ Considering everything that I said and adding one cushion trimester (to account 
     - [Leading ML hardware becomes 40% more energy-efficient each year](https://epoch.ai/data-insights/ml-hardware-energy-efficiency)
     - [The power required to train frontier AI models is doubling annually](https://epoch.ai/data-insights/power-usage-trend)
 
-- The Artificial Analysis Intelligence Index is limited, as it is semi-saturated and doubling the current SOTA value would bring it closer to 100%, where gains slow and are nearly nonexistent; this is not because we are not getting improvements in the LLM, but because it could "beat" the benchmark. We are thinking of switching to another index, like [ECI](https://epoch.ai/benchmarks/eci).
+- The Artificial Analysis Intelligence Index is limited, as it is semi-saturated and doubling the current SOTA value would bring it closer to 100%, where gains are slow and almost nonexistent; this is not because we are not getting improved LLMs, but because they managed to "beat" the benchmark. We are thinking of switching to another index, like [ECI](https://epoch.ai/benchmarks/eci).
