@@ -74,10 +74,10 @@ From the given data, we can calculate the best approximation of a linear and of 
 
 |                              | +50% [*Linear*] | +50% [*Quadratic*] | +100% [*Linear*] | +100% [*Quadratic*] |
 |------------------------------|---------------|------------------|----------------|-------------------|
-| Intelligence                 |   2027-12-05   |  2026-08-26    |  **2029-04-16**              | **2027-02-25**                  |
-| Intelligence (*openweights*)  |  2029-05-18             |  2026-11-24     | 2031-01-15  | **2027-05-06**      |
-| Efficency                | 2028-05-11     |  2026-07-16   | 2030-02-25   | **2027-02-12**   |
-| Speed                    | 2030-07-03     |  2026-11-26      | 2032-12-19        |  **2027-06-08**     |
+| Intelligence                 |   Dec 2027   |  Aug 2026    |  **Apr 2029**              | **Feb 2027**                  |
+| Intelligence (*openweights*)  |  May 2029    |  Nov 2026     | Jan 2031  | **May 2027**      |
+| Efficency                | May 2028     |  Jul 2026   | Feb 2030   | **Feb 2027**   |
+| Speed                    | Jul 2030     |  Nov 2026      | Dec 2032        |  **Jun 2027**     |
 
 As we can see, the quadratic function predicts **Q1 2027** for the Intelligence and Efficency improvements and **Q2 2027** for the Open-Weights and Speed improvements.
 
@@ -102,3 +102,5 @@ Considering everything that I said and adding one cushion trimester (to account 
     - [Global AI computing capacity is doubling every 7 months](https://epoch.ai/data-insights/ai-chip-production)
     - [Today’s largest data center can do more than 20 GPT-4-scale training runs each month](https://epoch.ai/data-insights/gpt-4s-trainable)
     - [Open-weight models lag state-of-the-art by around 3 months on average](https://epoch.ai/data-insights/open-weights-vs-closed-weights-models)
+
+- The Artifical Analysis Intelligence Index is limited, as it is semi-saturated and doubling the current SOTA value would bring it closer to 100%, where gains are slowed and almost none; this is not beacuse we are not getting improvements in the LLM, but beacuse it could "beat" the benchmark.  We are thinking of switching to another index, like [ECI](https://epoch.ai/benchmarks/eci).
