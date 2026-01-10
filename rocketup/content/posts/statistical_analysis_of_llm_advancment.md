@@ -48,6 +48,8 @@ We then try to plot the linear and quadratic functions that are as close as poss
 
 Therefore, we can infer that the quadratic function is the one that best describes the Pareto frontier and that it is ~1.85x more accurate than the linear function.
 
+*(note: If you want to better understand why a quadratic function works for modelling the current scaling of LLMs, check the EpochAI studies cited at the end of the blogpost.)*
+
 ### Evolution of LLMs' Intelligence
 
 ![plot](/llm-growth-score-time.png)
