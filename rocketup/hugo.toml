@@ -9,8 +9,7 @@ math = true
 math = true
 rss = true                                # show rss icon
 github = 'gi-dellav'
-mastodon = 'gi-dellav'
-bluesky = 'gi-dellav'
+bluesky = 'djtechd.bsky.social'
 
 #[params.giscus]
 #  repo = 'gi-dellav/rocketup'                 # see https://giscus.app for more details
