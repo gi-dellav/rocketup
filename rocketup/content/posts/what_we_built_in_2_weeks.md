@@ -1,6 +1,6 @@
 +++
 title = 'What we built in 2 weeks @ zerostack'
-date = 2026-15-31T18:56:49+01:00
+date = 2026-05-31T12:56:49+01:00
 draft = false
 +++
 
