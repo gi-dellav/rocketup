@@ -77,4 +77,4 @@ The entire implementation sits at 797 lines of code (written in Rust).
 
 ---
 
-Follow us [on Github](https://github.com/gi-dellav/zerostack/) for updates. Memory ships in v1.4.0.
+Follow us [on Github](https://github.com/gi-dellav/zerostack/) for updates.
