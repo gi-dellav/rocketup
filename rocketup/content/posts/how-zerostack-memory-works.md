@@ -24,7 +24,7 @@ zerostack's Memory system is a file-based store living under `<config_dir>/agent
 ```
 
 The project slug is `<sanitized-basename>-<8-hex-of-path-hash>`, so two repos with the same folder name get distinct storage.
-`MEMORY.md` is global and shared across all projects, allowing for intra-project instructions.
+`MEMORY.md` is global and shared across all projects, allowing for cross-project instructions.
 
 ## Context injection
 
