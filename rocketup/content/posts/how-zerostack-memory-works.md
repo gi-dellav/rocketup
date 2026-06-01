@@ -48,7 +48,7 @@ Three tools are registered when the `memory` feature is enabled:
 
 - **`memory_write`** — persists content to any target (`long_term`, `scratchpad`, `daily`, or `note`), with `append` (default) or `overwrite` mode
 - **`memory_read`** — reads from any target; `source=list` enumerates all `.md` files
-- **`memory_search`** — multi-term keyword search with context expansion, ranked by term diversity, hit count, and recency
+- **`memory_search`** — multi-term keyword search with context expansion; results are ranked with `MEMORY.md` always first, then by distinct terms matched, then content hits over filename-only matches, then total hit count, then newer daily logs, with a stable path tiebreak
 
 Search is deliberately simple: tokenize on whitespace, deduplicate, match case-insensitively across all terms.
 We decided to not use embeddings or word similarity calculations, in order to keep the memory logic as simple as possible.
