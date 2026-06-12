@@ -1,84 +1,89 @@
 +++
 title = 'ARCHITECTURE.md @ zerostack'
-date = 2026-06-01T11:00:00+01:00
+date = 2026-06-02T10:00:00+01:00
 draft = true
 +++
 
-*tldr* A single Markdown file that front-loads architectural knowledge so agents don't have to discover it from scratch
+*tldr* One file. Every agent reads it. Zero context wasted on rediscovery.
 
 ## The problem
 
-Every time an AI agent encounters a new codebase, it starts blind. It reads `AGENTS.md` for conventions, then begins probing files one by one. This works, but it costs tokens and turns as the agent builds a mental model from scratch. And every new session repeats the process.
+You start a new coding session. The agent doesn't know your project. It pokes around — reads a file, greps a pattern, reads another file. Ten turns later, it finally understands the layout. You pay for every one of those turns.
 
-We needed a way to front-load architectural understanding — so the agent enters the conversation already knowing how the project is organized, what the key types are, and where the control flow lives.
+Next session? Same thing. The agent has amnesia.
 
-## The solution: ARCHITECTURE.md
+`AGENTS.md` tells the agent *how* to operate. But nobody tells it *what* it's operating on. That gap is expensive.
 
-`ARCHITECTURE.md` is an optional file that gives both the main agent and subagents high-level design context about your project. It sits alongside `AGENTS.md` in the system prompt preamble:
+## The design
 
-```
-AGENTS.md content     → "how to work in this codebase"
-ARCHITECTURE.md       → "how this codebase is built"
-Custom prompt content → "what to do right now"
-```
+`ARCHITECTURE.md` is a single Markdown file that lives in your project root. It describes your codebase at the design level — directory layout, key types, control flow, data flow, design decisions, dependencies, entry points.
 
-All three are concatenated into the system prompt. Every LLM call carries awareness of your project's architecture.
-
-## Discovery and loading
-
-zerostack discovers `ARCHITECTURE.md` using the same recursive upward search as `AGENTS.md`:
-
-1. **Global**: `~/.local/share/zerostack/agent/ARCHITECTURE.md` (XDG data dir)
-2. **Project**: `ARCHITECTURE.md` in CWD and all parent directories up to root
-
-Files from all levels are concatenated with source-path headers, letting you define organization-wide conventions globally while keeping project-specific architecture per repo.
-
-If no `ARCHITECTURE.md` is found, zerostack offers to create one:
+On startup, zerostack walks up from your CWD collecting every `ARCHITECTURE.md` it finds (project-level, monorepo-level, global-level), concatenates them with source-path headers, and injects the whole thing into the system prompt **before** the agent ever thinks.
 
 ```
-No ARCHITECTURE.md found in /home/you/project. Create one? [y/N]
+System prompt = reasoning prefix 
+              + AGENTS.md (how to operate)
+              + ARCHITECTURE.md (what to operate on)  ← injected here
+              + custom prompt
+              + CWD + memory + extra files
 ```
 
-Accept, and a template is written with sections for directory layout, key types, control flow, data flow, design decisions, dependencies, and entry points. A system message then instructs the agent to explore the codebase and populate the file.
+Every turn. Every subagent. Architecture awareness is not opt-in — it's ambient.
+
+## How it gets created
+
+First time you run zerostack in a project without one, it asks: *"No ARCHITECTURE.md found. Create one? [y/N]"*
+
+Say yes, and it writes a template with seven sections:
+
+| Section | What goes in it |
+|---|---|
+| Directory Layout | Where things live at a glance |
+| Key Types/Traits | The important structs, enums, traits |
+| Control Flow | How execution moves through the system |
+| Data Flow | How data transforms from input to output |
+| Design Decisions | *Why* things are the way they are |
+| Dependencies | Major crates/packages and their roles |
+| Entry Points | CLI, API, main loops — where it starts |
+
+The agent then auto-fills it by exploring your codebase. You review, tweak, commit. Done.
+
+## What it changes
+
+Without `ARCHITECTURE.md`, a subagent exploring "how does auth work?" starts from a blank slate — it discovers the directory structure, guesses at module boundaries, and wastes turns orienting itself.
+
+With `ARCHITECTURE.md`, it starts already knowing that auth lives in `src/auth.rs`, uses `AuthResolver` with a 4-tier key resolution chain, and was designed to support custom providers. Its first grep goes straight to the right file.
+
+The main agent benefits too. It doesn't need to "explore the codebase" before every non-trivial task. It already knows the shape of the project. First-turn accuracy goes up. Wasted exploration turns go down.
+
+## Configuration
+
+| Field | Default | Description |
+|---|---|---|
+| `no_context_files` | `false` | Skip all context files (AGENTS.md + ARCHITECTURE.md) |
+| (implicit) | — | Walks from CWD to `/`, collects every `ARCHITECTURE.md` |
+
+Global `ARCHITECTURE.md` lives at `~/.local/share/zerostack/agent/ARCHITECTURE.md`. Use it for conventions that span all your projects.
+
+## Architecture vs. Agents
+
+| | `AGENTS.md` | `ARCHITECTURE.md` |
+|---|---|---|
+| Tells the agent | How to behave | What it's working on |
+| Scope | Project conventions | Project design |
+| Changes | Rarely | With every major refactor |
+| Length | 50–200 words | 200–2000 words |
+
+They complement each other. One without the other is half the picture.
 
 ## What it enables
 
-Without `ARCHITECTURE.md`, an agent spends its early turns probing files, building a mental model, and often misunderstanding design intent. With it, the agent enters the conversation knowing:
+`ARCHITECTURE.md` turns project-specific knowledge into a persistent asset. Every agent — main agent, subagents, even future sessions — starts with design awareness. No warm-up cost. No rediscovery tax.
 
-| Aspect | Benefit |
-|---|---|
-| **Directory layout** | Knows where to find things without guessing |
-| **Key types/traits** | Understands data structures and relationships |
-| **Control flow** | Knows the request lifecycle and async boundaries |
-| **Data flow** | Understands how data enters, transforms, and exits |
-| **Design decisions** | Why X instead of Y — prevents re-litigating tradeoffs |
-| **Dependencies** | Which libraries do what |
-| **Entry points** | Where the application boots |
+Combined with subagents, it's especially powerful: 3 parallel subagents, each starting with full architecture context, return structured findings in a single turn that would otherwise take 10+ sequential exploration steps.
 
-## How subagents use it
-
-When the `task` tool spawns exploration subagents, they receive the same architecture context. This means a subagent tasked with "find where MCP tools are registered" already knows the project layout and can navigate directly to the right directory — no hand-holding from the main agent required.
-
-The `task` tool's system prompt explicitly instructs subagents to read `ARCHITECTURE.md` first before starting their investigation.
-
-## Writing a good one
-
-Aim for 200-500 words for small projects, 500-2000 for larger ones. Focus on structure, relationships, and rationale — don't reproduce code. The recommended sections are:
-
-1. **Directory Layout** — one-line summaries of each top-level directory
-2. **Key Types/Traits** — the 5-10 most important data structures
-3. **Control Flow** — request lifecycle, main loops, async boundaries
-4. **Data Flow** — how data enters, transforms, and exits
-5. **Design Decisions** — "why X instead of Y" for critical choices
-6. **Dependencies** — key libraries and what they're used for
-7. **Entry Points** — binary entry, API handlers, CLI parsing
-
-## The comparison with AGENTS.md
-
-`AGENTS.md` tells the agent how to operate (coding style, conventions, procedures). `ARCHITECTURE.md` tells it what it's operating on (structure, relationships, design intent). They're complementary — both are loaded into the preamble, both are auto-discovered, both can be suppressed with `--no-context-files`.
-
-The key difference: `ARCHITECTURE.md` changes when the codebase changes (refactors, new modules), while `AGENTS.md` changes when conventions change. The agent is prompted to update `ARCHITECTURE.md` when making significant structural changes, keeping it alive as living documentation.
+The entire implementation sits at ~180 lines of Rust, plus the template generation logic.
 
 ---
 
-Follow us [on Github](https://github.com/gi-dellav/zerostack/). ARCHITECTURE.md ships in v1.4.0.
+Follow us [on Github](https://github.com/gi-dellav/zerostack/).
