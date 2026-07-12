@@ -16,7 +16,7 @@ In particular the leaders of the European Parliament, of the European Commission
 
 Roberta Metsola is a master at bending rules; Manfred Weber is a master at bending rules; Ylva Johansson is a master at bending rules.
 
-Those are just some of the organizers of the new vote of the Chat Control, which managed to take a democratic vote made months ago, and turn it, after multiple attempts, into what was their "correct" solution, their decision.
+Those are just some of the organizers of the new vote of the Chat Control, which had a negative resolution from its democratic vote made months ago, and turn it, after multiple attempts, into what was their correct solution.
 
 When Russia influences elections in the European or in the American continents using their influence and their money, it is, rightfully, classified as an attack, as an attempt to gain influence and to sway the democratic systems of western countries: the people that are the first to point out the Russian attacks, are the same ones that act upon their desire for influence, where the only decisions that can be made are the ones approved by them.
 
