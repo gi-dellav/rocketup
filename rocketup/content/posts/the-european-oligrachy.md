@@ -6,8 +6,6 @@ draft = false
 
 ![the European Oligarchy](https://media.insideover.com/wp-content/uploads/2026/07/OVERCOME_20260711143115168_b09f581f96e5ab89e5d8221e6f8811fa-e1783773117784.jpg)
 
-*context: I'm an Italian tech student, reason why I feel forced to write this article.*
-
 This is the face of the European Oligarchy.
 
 Yes, Roberta Metsola is the face of the European Oligarchy.
