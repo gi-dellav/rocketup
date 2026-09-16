@@ -1,4 +1,12 @@
 {{ define "main" }}
+  {{ with site.GetPage "/about" }}
+    <section class="mb-14 rounded-xl bg-black/[3%] p-6 dark:bg-white/[8%]">
+      <h2 class="mt-0!">{{ .Title }}</h2>
+      <p>{{ .Summary }}</p>
+      <a class="not-prose" href="{{ .RelPermalink }}">Read more →</a>
+    </section>
+  {{ end }}
+
   <h1>All Posts</h1>
   <ul>
     {{ range .Site.RegularPages }}
