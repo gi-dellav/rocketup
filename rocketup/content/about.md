@@ -56,7 +56,7 @@ An attempt at writing down all CS-related books I've read (or currently reading)
 - [Think Bayes](https://greenteapress.com/wp/think-bayes/)
 - [Think Python](https://greenteapress.com/wp/think-python-2e/)
 
-### Books I am about to
+### Books I am about to read
 
 An attempt at writing down all CS-related books I want to read in the next months:
 
