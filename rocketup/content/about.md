@@ -11,7 +11,9 @@ I'm mostly focused on ML, AI and distributed computing (+ in the spare time I wo
 
 I develop in Python, JS/TS and Rust; I'm currently learning C and Haskell.
 
-I built my own coding agent, [zerostack](https://github.com/gi-dellav/zerostack) (1.8k stars), for which I recieved a [1000$ OSS grant](https://rauchg-oss-grants.vercel.app/) from [Guillermo Rauch](https://rauchg.com/about).
+I don't often work on frontend, but when I do I use [Svelte](https://svelte.dev/).
+
+I built my own coding agent, [zerostack](https://github.com/gi-dellav/zerostack) (1.7k stars), for which I recieved a [1000$ OSS grant](https://rauchg-oss-grants.vercel.app/) from [Guillermo Rauch](https://rauchg.com/about).
 
 ---
 
@@ -38,6 +40,7 @@ An attempt at writing down all CS-related books I've read (or currently reading)
 - [Write Powerful Rust Macros](https://www.manning.com/books/write-powerful-rust-macros)
 - [Numerical Optimization](https://link.springer.com/book/10.1007/978-0-387-40065-5)
 - [Probabilistic Machine Learning](https://probml.github.io/pml-book/)
+- [Real-World Svelte](https://www.amazon.it/Real-World-Svelte-Supercharge-mastering-development/dp/1804616036)
 - [Data Structures and Alghorithms in JavaScript](https://nostarch.com/data-structures-and-algorithms-javascript)
 - [Total TypeScript](https://www.google.com/search?client=firefox-b-d&q=total+typescript+no+starch)
 - [Programming TypeScript](https://www.oreilly.com/library/view/programming-typescript/9781492037644/)
