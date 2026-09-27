@@ -5,13 +5,13 @@ menu = 'main'
 summary = 'Giuseppe Della Vedova, computer science hobbyist'
 +++
 
-Hi, I'm Giuseppe Della Vedova, I'm a computer science hobbyist.
+Hi, I'm Giuseppe Della Vedova, a computer scientist from Italy.
 
 I'm mostly focused on ML, AI and distributed computing (+ in the spare time I work on interpreters and text-based games), with a shared focus on optimized code.
 
 I develop in Python, JS/TS and Rust; I'm currently learning C and Haskell.
 
-I built my own coding agent, [zerostack](https://github.com/gi-dellav/zerostack).
+I built my own coding agent, [zerostack](https://github.com/gi-dellav/zerostack) (1.8k stars), for which I recieved a [1000$ OSS grant](https://rauchg-oss-grants.vercel.app/) from [Guillermo Rauch](https://rauchg.com/about).
 
 ---
 
