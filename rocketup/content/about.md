@@ -13,6 +13,8 @@ I develop in Python, JS/TS and Rust; I'm currently learning C and Haskell.
 
 I don't often work on frontend, but when I do I use [Svelte](https://svelte.dev/).
 
+I'm fluent in English and Italian, and I'm currently learning German.
+
 I built my own coding agent, [zerostack](https://github.com/gi-dellav/zerostack) (1.7k stars), for which I recieved a [1000$ OSS grant](https://rauchg-oss-grants.vercel.app/) from [Guillermo Rauch](https://rauchg.com/about).
 
 ---
