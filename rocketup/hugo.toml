@@ -5,6 +5,9 @@ theme = "paper"
 sectionPagesMenu = 'main'
 math = true
 
+[markup.goldmark.renderer]
+unsafe = true
+
 [params]
 math = true
 rss = true                                # show rss icon
