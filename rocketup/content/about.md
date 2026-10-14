@@ -9,7 +9,7 @@ Hi, I'm Giuseppe Della Vedova, a computer scientist from Italy.
 
 I'm mostly focused on ML, AI and distributed computing (+ in the spare time I work on interpreters and text-based games), with a shared focus on optimized code.
 
-I develop in Python, JS/TS and Rust; I'm currently learning C and Haskell.
+I develop in Rust, Python, JS/TS and C; I'm currently learning Haskell.
 
 I don't often work on frontend, but when I do I use [Svelte](https://svelte.dev/).
 
@@ -30,11 +30,10 @@ I'm always reading and replying to emails at: giuseppe (dot) dellavedova8 (at) g
 An attempt at writing down all CS-related books I've read (or currently reading):
 
 <details>
-<summary>Optimization</summary>
+<summary>Numerical Optimization</summary>
 
 - [Numerical Optimization](https://link.springer.com/book/10.1007/978-0-387-40065-5)
 - [Derivative-Free and Blackbox Optimization (2nd Edition)](https://link.springer.com/book/10.1007/978-3-319-68913-5)
-- [Linear Algebra and Optimization for Machine Learning](https://link.springer.com/book/10.1007/978-3-030-40344-7)
 
 </details>
 
@@ -73,6 +72,7 @@ An attempt at writing down all CS-related books I've read (or currently reading)
 
 - [Effective C (2nd Edition)](https://nostarch.com/effective-c-2nd-edition)
 - [Write Great Code, Vol.2](https://nostarch.com/writegreatcode2_2)
+- [21st Century C](https://www.oreilly.com/library/view/21st-century-c/9781491904428/)
 
 </details>
 
@@ -99,7 +99,9 @@ An attempt at writing down all CS-related books I've read (or currently reading)
 <summary>Python</summary>
 
 - [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/)
+- [The Big Book of Small Python Projects](https://nostarch.com/big-book-small-python-projects)
 - [Think Python](https://greenteapress.com/wp/think-python-2e/)
+- [Fluent Python, 2nd Edition](https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/)
 
 </details>
 
