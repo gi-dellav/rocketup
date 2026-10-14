@@ -151,30 +151,30 @@ An attempt at writing down all CS-related books I want to read in the next month
 <details>
 <summary>Distributed Systems & Networking</summary>
 
-- [Designing Data-Intensive Applications (reading now)](https://dataintensive.net/)
-- [Distributed Algorithms (reading now)](https://www.elsevier.com/books/distributed-algorithms/lynch/978-1-55860-348-6)
-- [Computer Networking: A Top-down Approach (reading now)](https://archive.org/details/computernetworki0000jame_y6m8)
+- [Designing Data-Intensive Applications](https://dataintensive.net/)
+- [Distributed Algorithms](https://www.elsevier.com/books/distributed-algorithms/lynch/978-1-55860-348-6)
+- [Computer Networking: A Top-down Approach](https://archive.org/details/computernetworki0000jame_y6m8)
 
 </details>
 
 <details>
 <summary>Optimization & Numerical Methods</summary>
 
-- [Numerical Analysis: Theory and Experiments (reading now)](https://epubs.siam.org/doi/book/10.1137/1.9781611975703)
+- [Numerical Analysis: Theory and Experiments](https://epubs.siam.org/doi/book/10.1137/1.9781611975703)
 
 </details>
 
 <details>
 <summary>Operating Systems</summary>
 
-- [Operating Systems: Three Easy Pieces (reading now)](https://pages.cs.wisc.edu/~remzi/OSTEP/)
+- [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/)
 
 </details>
 
 <details>
 <summary>Software Engineering</summary>
 
-- [Software Engineering at Google (reading now)](https://www.oreilly.com/library/view/software-engineering-at/9781492082781/)
-- [Effective Software Testing (reading now)](https://www.amazon.com/dp/1633439933?lv=shuf&channelId=500&plpRedirect=mhFallback)
+- [Software Engineering at Google](https://www.oreilly.com/library/view/software-engineering-at/9781492082781/)
+- [Effective Software Testing](https://www.amazon.com/dp/1633439933?lv=shuf&channelId=500&plpRedirect=mhFallback)
 
 </details>
